@@ -1,28 +1,20 @@
 """
 A module for vectorized geohashing in Python.
+Vectorized functions that allow efficient transformation of latitude and longitude coordinates into Map Tile
+coordinates, Map Pixel coordinates or QuadKeys. This can be particularly useful in (GIS) geographic information systems
+and mapping applications. By utilizing vectorized functions, transformation can be performed on large datasets,
+with minimal impact on performance. Additionally, only using numpy as dependency these functions can be easily
+incorporated into existing code and workflows.
 
-This module provides functions for converting geographic coordinates (latitude
-and longitude) to a geohash string, and vice versa. The functions are vectorized
-to support processing of large arrays of coordinates in a fast and efficient
-manner.
+Platform Support:
+    This module is supported on Unix and Windows platforms.
 
-
-Functions
----------
-
-
-Platform Support
-----------------
-This module is supported on Unix and Windows platforms.
-
-
-Module Author
--------------
+Module Author:
     name : Filip Jakovljevic
     email : fillix96@gmail.com
 """
 
-from .vec_geohash import *
+from .vec_geohash import *  # noqa: F403
 
 __author__ = 'FJakovljevic'
 __version__ = '1.0.0'

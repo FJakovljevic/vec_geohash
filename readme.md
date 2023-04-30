@@ -16,7 +16,7 @@ pip install vec_geohash
 
 ## Usage
 
-### Vector example
+#### Vector example
 
 ```python
 import vec_geohash
@@ -48,7 +48,7 @@ vec_geohash.lat_lon_to_pixel(lat_vector, lon_vector, zoom)
            [33623, 48729]])
 ```
 
-### Scalar example
+#### Scalar example
 
 ```python
 import vec_geohash

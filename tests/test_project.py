@@ -248,7 +248,3 @@ class TestProjection(unittest.TestCase):
         )
         np.testing.assert_almost_equal(projected_longitudes, expected_longitudes)
         np.testing.assert_almost_equal(projected_latitudes, expected_latitudes)
-
-
-if __name__ == "__main__":
-    unittest.main()

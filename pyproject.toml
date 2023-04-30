@@ -33,3 +33,6 @@ line-length = 127
 
 [tool.ruff.pycodestyle]
 ignore-overlong-task-comments = true
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report term-missing"

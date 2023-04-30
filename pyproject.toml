@@ -25,8 +25,11 @@ dependencies = [
     "numpy"
 ]
 
+[tool.black]
+line-length = 127
+
 [tool.ruff]
-line-length = 120
+line-length = 127
 
 [tool.ruff.pycodestyle]
 ignore-overlong-task-comments = true

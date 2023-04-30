@@ -1,7 +1,6 @@
 import unittest
 import numpy as np
 
-import sys
 import vec_geohash
 
 
@@ -149,7 +148,7 @@ class TestQuadkey(unittest.TestCase):
         np.testing.assert_array_equal(vec_geohash.quadkey_to_tile_tuple(quadkey), expected_output)
 
         # expected output for latlon
-        expected_output = np.array([[82.265625, 52.908902, 82.96875 , 53.330873], [-87.890625,  41.508577, -87.1875  ,  42.032974]])
+        expected_output = np.array([[82.2656, 52.9089, 82.9687 , 53.3308], [-87.8906, 41.5085, -87.1875, 42.0329]])
         np.testing.assert_almost_equal(vec_geohash.quadkey_to_lat_lon(quadkey), expected_output, decimal=3)
 
         # expected output for pixel

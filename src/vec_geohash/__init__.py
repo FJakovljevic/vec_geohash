@@ -30,4 +30,4 @@ try:
     import numpy
 except ImportError:
     import logging
-    logging.error(f"Numpy is a needed dependency to use vectorised geohashing functions.")
+    logging.error("Numpy is a needed dependency to use vectorised geohashing functions.")

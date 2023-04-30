@@ -11,7 +11,7 @@ class TestLatLon(unittest.TestCase):
         lon = 82.6978699112
         zoom = 9
 
-        # expected output for tile touple
+        # expected output for tile tuple
         expected_output = (373, 166)
         self.assertEqual(vec_geohash.lat_lon_to_tile(lat, lon, zoom), expected_output)
 
@@ -19,7 +19,7 @@ class TestLatLon(unittest.TestCase):
         expected_output = np.array(['121310321'], dtype='<U9')
         np.testing.assert_array_equal(vec_geohash.lat_lon_to_quadkey(lat, lon, zoom), expected_output)
 
-        # expected output for pixel touple
+        # expected output for pixel tuple
         expected_output = (95645, 42622)
         np.testing.assert_array_equal(vec_geohash.lat_lon_to_pixel(lat, lon, zoom), expected_output)
 
@@ -30,7 +30,7 @@ class TestLatLon(unittest.TestCase):
         lon = np.array([82.6978699112, -87.65])
         zoom = 9
 
-        # expected output for tile touple
+        # expected output for tile tuple
         expected_output = np.array([[373, 166], [131, 190]])
         np.testing.assert_array_equal(vec_geohash.lat_lon_to_tile_tuple(lat, lon, zoom), expected_output)
 
@@ -38,9 +38,9 @@ class TestLatLon(unittest.TestCase):
         expected_output = np.array(['121310321', '030222231'], dtype='<U9')
         np.testing.assert_array_equal(vec_geohash.lat_lon_to_quadkey(lat, lon, zoom), expected_output)
 
-        # expected output for pixel touple
+        # expected output for pixel tuple
         expected_output = np.array([[95645, 42622], [33623, 48729]])
-        np.testing.assert_array_equal(vec_geohash.lat_lon_to_pixel_touple(lat, lon, zoom), expected_output)
+        np.testing.assert_array_equal(vec_geohash.lat_lon_to_pixel_tuple(lat, lon, zoom), expected_output)
 
 
 
@@ -51,7 +51,7 @@ class TestPixel(unittest.TestCase):
         lon = 42622
         zoom = 9
 
-        # expected output for tile touple
+        # expected output for tile tuple
         expected_output = (373, 166)
         self.assertEqual(vec_geohash.pixel_to_tile(lat, lon), expected_output)
 
@@ -59,7 +59,7 @@ class TestPixel(unittest.TestCase):
         expected_output = np.array(['121310321'], dtype='<U9')
         np.testing.assert_array_equal(vec_geohash.pixel_to_quadkey(lat, lon, zoom), expected_output)
 
-        # expected output for latlon touple
+        # expected output for latlon tuple
         expected_output = (53.1231276599, 82.6978699112)
         np.testing.assert_almost_equal(vec_geohash.pixel_to_lat_lon(lat, lon, zoom), expected_output, decimal=3)
 
@@ -70,7 +70,7 @@ class TestPixel(unittest.TestCase):
         lon = np.array([42622, 48729])
         zoom = 9
 
-        # expected output for tile touple
+        # expected output for tile tuple
         expected_output = np.array([[373, 166], [131, 190]])
         np.testing.assert_array_equal(vec_geohash.pixel_to_tile_tuple(lat, lon), expected_output)
 
@@ -78,7 +78,7 @@ class TestPixel(unittest.TestCase):
         expected_output = np.array(['121310321', '030222231'], dtype='<U9')
         np.testing.assert_array_equal(vec_geohash.pixel_to_quadkey(lat, lon, zoom), expected_output)
 
-        # expected output for latlon touple
+        # expected output for latlon tuple
         expected_output = np.array([[53.1231276599, 82.6978699112], [41.851, -87.652]])
         np.testing.assert_almost_equal(vec_geohash.pixel_to_lat_lon_tuple(lat, lon, zoom), expected_output, decimal=3)
 

@@ -25,9 +25,4 @@ Module Author
 from .vec_geohash import *
 
 __author__ = 'FJakovljevic'
-
-try:
-    import numpy
-except ImportError:
-    import logging
-    logging.error("Numpy is a needed dependency to use vectorised geohashing functions.")
+__version__ = '1.0.0'

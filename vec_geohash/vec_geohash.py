@@ -166,7 +166,7 @@ def lat_lon_to_pixel(latitude, longitude, zoom):
     return _projection_to_pixel(proj_x, zoom), _projection_to_pixel(proj_y, zoom)
 
 
-def lat_lon_to_pixel_touple(latitude, longitude, zoom):
+def lat_lon_to_pixel_tuple(latitude, longitude, zoom):
     "Returns [(pixel_x, pixel_y)] coords for zoom level"
     pixel_x, pixel_y = lat_lon_to_pixel(latitude, longitude, zoom)
     return np.array((pixel_x, pixel_y)).T
@@ -255,7 +255,7 @@ def pixel_to_lat_lon_tuple(pixel_x, pixel_y, zoom):
     return np.array((lat, lon)).T
 
 
-def pixel_touple_to_lat_lon_touple(latitude, longitude, zoom):
+def pixel_tuple_to_lat_lon_tuple(latitude, longitude, zoom):
     "TODO"
 ##############################################
 ################################################

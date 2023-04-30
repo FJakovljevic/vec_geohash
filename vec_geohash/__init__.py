@@ -16,5 +16,5 @@ Module Author:
 
 from .vec_geohash import *  # noqa: F403
 
-__author__ = 'FJakovljevic'
-__version__ = '1.0.0'
+__author__ = "FJakovljevic"
+__version__ = "1.0.0"

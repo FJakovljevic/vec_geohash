@@ -26,6 +26,9 @@ dependencies = [
     'importlib_metadata; python_version < "3.8"',
 ]
 
+[project.urls]
+homepage = "https://github.com/FJakovljevic/vec_geohash"
+
 [tool.setuptools_scm]
 write_to = "vec_geohash/_version.py"
 

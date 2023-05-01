@@ -11,8 +11,18 @@ Vectorized functions that allow efficient transformation of __latitude and longi
 
 ## Instalation
 
+The project can be installed using \`pip\`:
+
 ```sh
 pip install vec_geohash
+```
+
+To install from this repo:
+
+```sh
+git clone https://github.com/FJakovljevic/vec_geohash.git
+cd vec_geohash
+pip install -e .
 ```
 
 ## Usage

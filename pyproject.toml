@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools >= 65", "setuptools_scm[toml]"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "vec_geohash"
-version = "1.0.0"
+dynamic = ["version"]
 description = "Vectorized functions for transforming latitude and longitude coordinates to Map Tile coordinates, Map Pixel coordinates or QuadKeys"
 license = {file = "LICENSE.txt"}
 readme = "README.md"
@@ -22,8 +22,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
 ]
 dependencies = [
-    "numpy"
+    "numpy",
+    'importlib_metadata; python_version < "3.8"',
 ]
+
+[tool.setuptools_scm]
+write_to = "vec_geohash/_version.py"
 
 [tool.black]
 line-length = 127

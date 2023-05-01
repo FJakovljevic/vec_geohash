@@ -13,8 +13,17 @@ Module Author:
     name : Filip Jakovljevic
     email : fillix96@gmail.com
 """
+try:
+    from importlib.metadata import PackageNotFoundError, version
+except ImportError:
+    from importlib_metadata import PackageNotFoundError, version
 
 from .vec_geohash import *  # noqa: F403
 
+try:
+    __version__ = version("vec_geohash")
+except PackageNotFoundError:
+    # If the package is not installed, don't add __version__
+    pass
+
 __author__ = "FJakovljevic"
-__version__ = "1.0.0"

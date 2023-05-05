@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.7+-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/FJakovljevic/vec_geohash/actions/workflows/runt_test_on_python_versions.yml/badge.svg)](https://github.com/FJakovljevic/vec_geohash/actions/workflows/runt_test_on_python_versions.yml)
+[![Tests](https://github.com/FJakovljevic/vec_geohash/actions/workflows/run_test_on_python_versions.yml/badge.svg)](https://github.com/FJakovljevic/vec_geohash/actions/workflows/runt_test_on_python_versions.yml)
 [![Ruff](https://github.com/FJakovljevic/vec_geohash/actions/workflows/ruff_linting_tests.yml/badge.svg)](https://github.com/FJakovljevic/vec_geohash/actions/workflows/ruff_linting_tests.yml)
 
 ## Short Description

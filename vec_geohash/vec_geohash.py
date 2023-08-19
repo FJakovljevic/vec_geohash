@@ -142,13 +142,13 @@ def tile_to_quadkey(tile_x, tile_y, zoom):
 
 
 def lat_lon_to_quadkey(latitude, longitude, zoom):
-    "Converts [latitude] and [longitude] vectors to [quadkey] for wanted zoom level"
+    """Converts [latitude] and [longitude] vectors to [quadkey] for wanted zoom level."""
     tile_x, tile_y = lat_lon_to_tile(latitude, longitude, zoom)
     return tile_to_quadkey(tile_x, tile_y, zoom)
 
 
 def pixel_to_quadkey(pixel_x, pixel_y, zoom):
-    "Converts [pixel_x] and [pixel_y] vectors to [quadkey]"
+    """Converts [pixel_x] and [pixel_y] vectors to [quadkey]."""
     tile_x, tile_y = pixel_to_tile(pixel_x, pixel_y)
     return tile_to_quadkey(tile_x, tile_y, zoom)
 
@@ -160,24 +160,24 @@ def pixel_to_quadkey(pixel_x, pixel_y, zoom):
 ################################################ to PIXEL
 ##############################################
 def _projection_to_pixel(x, zoom):
-    "Returns a PIXEL coordinate based on zoom level for projected lat/lon"
+    """Returns a PIXEL coordinate based on zoom level for projected lat/lon."""
     return np.int_(x * (TILE_SIZE << zoom))
 
 
 def lat_lon_to_pixel(latitude, longitude, zoom):
-    "Returns [pixel_x] and [pixel_y] coords for zoom level"
+    """Returns [pixel_x] and [pixel_y] coords for zoom level."""
     proj_x, proj_y = _project_longitude(longitude), _project_latitude(latitude)
     return _projection_to_pixel(proj_x, zoom), _projection_to_pixel(proj_y, zoom)
 
 
 def lat_lon_to_pixel_tuple(latitude, longitude, zoom):
-    "Returns [(pixel_x, pixel_y)] coords for zoom level"
+    """Returns [(pixel_x, pixel_y)] coords for zoom level."""
     pixel_x, pixel_y = lat_lon_to_pixel(latitude, longitude, zoom)
     return np.array((pixel_x, pixel_y)).T
 
 
 def tile_to_pixel(tile_x, tile_y):
-    "Convert [tile_x] and [tile_y] vectors to [[min_x, min_y, max_x, max_y]] pixel coordinates"
+    """Convert [tile_x] and [tile_y] vectors to [[min_x, min_y, max_x, max_y]] pixel coordinates."""
     return np.array(
         (
             tile_x * TILE_SIZE,
@@ -189,7 +189,7 @@ def tile_to_pixel(tile_x, tile_y):
 
 
 def quadkey_to_pixel(quadkeys):
-    "Convert [quadkey] vector to [[min_x, min_y, max_x, max_y]]  pixel coordinates"
+    """Convert [quadkey] vector to [[min_x, min_y, max_x, max_y]]  pixel coordinates."""
     tile_x, tile_y = quadkey_to_tile(quadkeys)
     return tile_to_pixel(tile_x, tile_y)
 
@@ -201,38 +201,38 @@ def quadkey_to_pixel(quadkeys):
 ################################################ to LatLon
 ##############################################
 def _pixel_to_projection(x, zoom):
-    "Transforms pixel coordinate to range [0, 1]"
+    """Transforms pixel coordinate to range [0, 1]."""
     max_pixel = TILE_SIZE << zoom
     return np.clip(x, 0, max_pixel) / max_pixel
 
 
 def _tile_to_projection(x, zoom):
-    "Transforms tile to projection"
+    """Transforms tile to projection."""
     return x / (1 << zoom)
 
 
 def _projection_to_latitude(y):
-    "Returns latitude from projection value"
+    """Returns latitude from projection value."""
     return 90 - 360 * np.arctan(np.exp((y - 0.5) * 2 * np.pi)) / np.pi
 
 
 def _projection_to_longitude(x):
-    "Returns longitude from projection value"
+    """Returns longitude from projection value."""
     return 360 * (x - 0.5)
 
 
 def _tile_to_latitude(x, zoom):
-    "Gets latitude of top left corner of tile"
+    """Gets latitude of top left corner of tile."""
     return _projection_to_latitude(_tile_to_projection(x, zoom))
 
 
 def _tile_to_longitude(x, zoom):
-    "Gets latitude of top left corner of tile"
+    """Gets latitude of top left corner of tile."""
     return _projection_to_longitude(_tile_to_projection(x, zoom))
 
 
 def tile_to_lat_lon(tile_x, tile_y, zoom):
-    "Convert [tile_x] and [tile_y] vectors to [[min_lon, min_lat, max_lon, max_lat]]"
+    """Convert [tile_x] and [tile_y] vectors to [[min_lon, min_lat, max_lon, max_lat]]."""
     min_lon = _tile_to_longitude(tile_x, zoom)
     max_lat = _tile_to_latitude(tile_y, zoom)
     max_lon = _tile_to_longitude(tile_x + 1, zoom)
@@ -241,20 +241,20 @@ def tile_to_lat_lon(tile_x, tile_y, zoom):
 
 
 def quadkey_to_lat_lon(quadkeys):
-    "Convert [quadkey] vector to [[min_lon, min_lat, max_lon, max_lat]]"
+    """Convert [quadkey] vector to [[min_lon, min_lat, max_lon, max_lat]]."""
     zoom = len(quadkeys) if isinstance(quadkeys, str) else len(quadkeys[0])
     tile_x, tile_y = quadkey_to_tile(quadkeys)
     return tile_to_lat_lon(tile_x, tile_y, zoom)
 
 
 def pixel_to_lat_lon(pixel_x, pixel_y, zoom):
-    "Converts [pixel_x] and [pixel_y] vectors to [latitude] and [longitude] for zoom level"
+    """Converts [pixel_x] and [pixel_y] vectors to [latitude] and [longitude] for zoom level."""
     proj_x, proj_y = _pixel_to_projection(pixel_x, zoom), _pixel_to_projection(pixel_y, zoom)
     return _projection_to_latitude(proj_y), _projection_to_longitude(proj_x)
 
 
 def pixel_to_lat_lon_tuple(pixel_x, pixel_y, zoom):
-    "Converts [pixel_x] and [pixel_y] vectors to [[latitude, longitude]] for zoom level"
+    """Converts [pixel_x] and [pixel_y] vectors to [[latitude, longitude]] for zoom level."""
     lat, lon = pixel_to_lat_lon(pixel_x, pixel_y, zoom)
     return np.array((lat, lon)).T
 
@@ -270,7 +270,7 @@ def pixel_tuple_to_lat_lon_tuple(latitude, longitude, zoom):
 ################################################ boundaries
 ##############################################
 def lat_lon_bounds_to_tile_range(bounds, zoom):
-    """Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to tile coords [[min_x, min_y, max_x, max_y]]"""
+    """Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to tile coords [[min_x, min_y, max_x, max_y]]."""
     lon_min, lat_min, lon_max, lat_max = bounds.T
     tile_x_min, tile_y_max = lat_lon_to_tile(lat_max, lon_min, zoom)
     tile_x_max, tile_y_min = lat_lon_to_tile(lat_min, lon_max, zoom)

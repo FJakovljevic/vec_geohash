@@ -33,10 +33,10 @@ homepage = "https://github.com/FJakovljevic/vec_geohash"
 write_to = "vec_geohash/_version.py"
 
 [tool.black]
-line-length = 127
+line-length = 130
 
 [tool.ruff]
-line-length = 127
+line-length = 130
 
 [tool.ruff.pycodestyle]
 ignore-overlong-task-comments = true

@@ -97,6 +97,8 @@ def quadkey_to_tile_tuple(quadkeys):
     """
     tile_x, tile_y = quadkey_to_tile(quadkeys)
     return np.array((tile_x, tile_y)).T
+
+
 ##############################################
 ################################################
 
@@ -149,6 +151,8 @@ def pixel_to_quadkey(pixel_x, pixel_y, zoom):
     "Converts [pixel_x] and [pixel_y] vectors to [quadkey]"
     tile_x, tile_y = pixel_to_tile(pixel_x, pixel_y)
     return tile_to_quadkey(tile_x, tile_y, zoom)
+
+
 ##############################################
 ################################################
 
@@ -188,6 +192,8 @@ def quadkey_to_pixel(quadkeys):
     "Convert [quadkey] vector to [[min_x, min_y, max_x, max_y]]  pixel coordinates"
     tile_x, tile_y = quadkey_to_tile(quadkeys)
     return tile_to_pixel(tile_x, tile_y)
+
+
 ##############################################
 ################################################
 
@@ -243,9 +249,7 @@ def quadkey_to_lat_lon(quadkeys):
 
 def pixel_to_lat_lon(pixel_x, pixel_y, zoom):
     "Converts [pixel_x] and [pixel_y] vectors to [latitude] and [longitude] for zoom level"
-    proj_x, proj_y = _pixel_to_projection(pixel_x, zoom), _pixel_to_projection(
-        pixel_y, zoom
-    )
+    proj_x, proj_y = _pixel_to_projection(pixel_x, zoom), _pixel_to_projection(pixel_y, zoom)
     return _projection_to_latitude(proj_y), _projection_to_longitude(proj_x)
 
 
@@ -257,13 +261,16 @@ def pixel_to_lat_lon_tuple(pixel_x, pixel_y, zoom):
 
 def pixel_tuple_to_lat_lon_tuple(latitude, longitude, zoom):
     "TODO"
+
+
 ##############################################
 ################################################
+
 
 ################################################ boundaries
 ##############################################
 def lat_lon_bounds_to_tile_range(bounds, zoom):
-    """Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to their tile coords [[min_x, min_y, max_x, max_y]]"""
+    """Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to tile coords [[min_x, min_y, max_x, max_y]]"""
     lon_min, lat_min, lon_max, lat_max = bounds.T
     tile_x_min, tile_y_max = lat_lon_to_tile(lat_max, lon_min, zoom)
     tile_x_max, tile_y_min = lat_lon_to_tile(lat_min, lon_max, zoom)

@@ -84,10 +84,10 @@ def quadkey_to_tile(quadkeys):
         quadkeys = np.array(quadkeys, dtype="U").reshape(1, 1)
 
     quadkeys = quadkeys.view("U1").astype(np.int_)
-    shif_sequence = np.arange(quadkeys.shape[-1])[::-1]
+    shift_sequence = np.arange(quadkeys.shape[-1])[::-1]
 
-    to_tile_y = ((quadkeys & 0b10) >> 1) << shif_sequence
-    to_tile_x = (quadkeys & 0b01) << shif_sequence
+    to_tile_y = ((quadkeys & 0b10) >> 1) << shift_sequence
+    to_tile_x = (quadkeys & 0b01) << shift_sequence
     return to_tile_x.sum(1), to_tile_y.sum(1)
 
 
@@ -103,12 +103,12 @@ def quadkey_to_tile_tuple(quadkeys):
 
 ################################################ to QuadKey
 ##############################################
-def _broudcast_array(x, repeat):
+def _broadcast_array(x, repeat):
     """
     Broadcasts array X to a shape of (repeat, len(X))
 
                                      [[1, 1, 1, 1, 1]
-    _broudcast_array([1,5,7], 5) -->  [5, 5, 5, 5, 5]
+    _broadcast_array([1,5,7], 5) -->  [5, 5, 5, 5, 5]
                                       [7, 7, 7, 7, 7]]
     """
     return np.broadcast_to(x, (repeat, x.size)).T
@@ -123,9 +123,9 @@ def _interleave_base4(tile_x_broadcasted, tile_y_broadcasted, zoom):
         tileY = 5 = 1012
         quadkey = 1001112= 2134= “213”
     """
-    shif_sequence = np.arange(zoom)[::-1]
-    part_y = (np.right_shift(tile_y_broadcasted, shif_sequence) & 0b1) << 1
-    part_x = np.right_shift(tile_x_broadcasted, shif_sequence) & 0b1
+    shift_sequence = np.arange(zoom)[::-1]
+    part_y = (np.right_shift(tile_y_broadcasted, shift_sequence) & 0b1) << 1
+    part_x = np.right_shift(tile_x_broadcasted, shift_sequence) & 0b1
     return BASE_4[part_y | part_x].view(f"U{zoom}")
 
 
@@ -134,8 +134,8 @@ def tile_to_quadkey(tile_x, tile_y, zoom):
     Converts [tile_x] and [tile_y] vectors to [quadkey] for zoom level `zoom`.
     The `zoom` level used here should be the same as the one used to create the tiles.
     """
-    tile_x_broadcasted = _broudcast_array(np.int_(tile_x), zoom)
-    tile_y_broadcasted = _broudcast_array(np.int_(tile_y), zoom)
+    tile_x_broadcasted = _broadcast_array(np.int_(tile_x), zoom)
+    tile_y_broadcasted = _broadcast_array(np.int_(tile_y), zoom)
     return _interleave_base4(tile_x_broadcasted, tile_y_broadcasted, zoom).flatten()
 
 
@@ -216,12 +216,12 @@ def _projection_to_longitude(x):
 
 
 def _tile_to_latitude(x, zoom):
-    "Gets latitued of top left corner of tile"
+    "Gets latitude of top left corner of tile"
     return _projection_to_latitude(_tile_to_projection(x, zoom))
 
 
 def _tile_to_longitude(x, zoom):
-    "Gets latitued of top left corner of tile"
+    "Gets latitude of top left corner of tile"
     return _projection_to_longitude(_tile_to_projection(x, zoom))
 
 
@@ -250,7 +250,7 @@ def pixel_to_lat_lon(pixel_x, pixel_y, zoom):
 
 
 def pixel_to_lat_lon_tuple(pixel_x, pixel_y, zoom):
-    "Converts [pixel_x] and [pixel_y] vectors to [[latitude, longitude]]for zoom level"
+    "Converts [pixel_x] and [pixel_y] vectors to [[latitude, longitude]] for zoom level"
     lat, lon = pixel_to_lat_lon(pixel_x, pixel_y, zoom)
     return np.array((lat, lon)).T
 
@@ -259,3 +259,12 @@ def pixel_tuple_to_lat_lon_tuple(latitude, longitude, zoom):
     "TODO"
 ##############################################
 ################################################
+
+################################################ boundaries
+##############################################
+def lat_lon_bounds_to_tile_range(bounds, zoom):
+    "Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to their tile coords [[min_x, min_y, max_x, max_y]]"
+    lon_min, lat_min, lon_max, lat_max = bounds.T
+    tile_x_min, tile_y_max = vec_geohash.lat_lon_to_tile(lat_max, lon_min, zoom)
+    tile_x_max, tile_y_min = vec_geohash.lat_lon_to_tile(lat_min, lon_max, zoom)
+    return np.array([tile_x_min, tile_y_min, tile_x_max, tile_y_max]).T

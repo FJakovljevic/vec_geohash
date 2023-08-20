@@ -272,6 +272,6 @@ def pixel_tuple_to_lat_lon_tuple(latitude, longitude, zoom):
 def lat_lon_bounds_to_tile_range(bounds, zoom):
     """Converts bounds [[min_lon, min_lat, max_lon, max_lat]] from GeoDataFrame to tile coords [[min_x, min_y, max_x, max_y]]."""
     lon_min, lat_min, lon_max, lat_max = bounds.T
-    tile_x_min, tile_y_max = lat_lon_to_tile(lat_max, lon_min, zoom)
-    tile_x_max, tile_y_min = lat_lon_to_tile(lat_min, lon_max, zoom)
+    tile_x_min, tile_y_min = lat_lon_to_tile(lat_max, lon_min, zoom)
+    tile_x_max, tile_y_max = lat_lon_to_tile(lat_min, lon_max, zoom)
     return np.array([tile_x_min, tile_y_min, tile_x_max, tile_y_max]).T
